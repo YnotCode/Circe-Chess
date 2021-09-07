@@ -242,7 +242,7 @@ function onDragStart (source, piece, position, orientation) {
             pieceMapping[arrIndex] = "q"
         }
 
-        if (currentMove.flags.indexOf("c") != -1 || currentMove.flags.indexOf("e") != -1){
+        if (currentMove.flags.indexOf("c") != -1){
             let arrIndex = black_corresponding_squares.indexOf(newSquare);
             var ogSquare = black_original_squares[arrIndex];
             console.log(ogSquare);
@@ -267,7 +267,7 @@ function onDragStart (source, piece, position, orientation) {
             pieceMapping[arrIndex] = "q"
         }
 
-        if (currentMove.flags.indexOf("c") != -1 || currentMove.flags.indexOf("e") != -1){
+        if (currentMove.flags.indexOf("c") != -1){
             let arrIndex = white_corresponding_squares.indexOf(newSquare);
             var ogSquare = white_original_squares[arrIndex];
             console.log(ogSquare);
