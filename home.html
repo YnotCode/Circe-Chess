@@ -234,7 +234,7 @@
 
             function copyStuff(){
                 console.log("COPIED!");
-                navigator.clipboard.writeText("http://cb83-2601-400-8000-5990-ecb5-5266-970-113b.ngrok.io/join?" + code);
+                navigator.clipboard.writeText("circe-chess.herokuapp.com/join?" + code);
             }
 
             window.onload = function(){
@@ -245,7 +245,7 @@
                         document.getElementById("onlineModal").style.display = "block";
                     }
                     code = url.slice(url.indexOf("?") + 1, url.length);
-                    document.getElementById("joinLink").innerHTML += "<u>http://cb83-2601-400-8000-5990-ecb5-5266-970-113b.ngrok.io/join?" + code + "</u><button title='Copy URL to Clipboard' class='w3-button w3-white' onclick='copyStuff()'><i class='material-icons'>content_copy</i></button>";
+                    document.getElementById("joinLink").innerHTML += "<u>circe-chess.herokuapp.com/join?" + code + "</u><button title='Copy URL to Clipboard' class='w3-button w3-white' onclick='copyStuff()'><i class='material-icons'>content_copy</i></button>";
                     document.getElementById("swapMode").innerHTML = "Local Play";
                     document.getElementById("swapLink").href = "/";
                     document.getElementById("endBtn").innerHTML = "Resign";
