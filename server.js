@@ -64,6 +64,6 @@ app.get("/join", function(req, res){
     res.sendFile(__dirname + "/home.html");
 });
 
-server.listen("3432" || process.env.PORT, function(){
+server.listen(process.env.PORT, function(){
     console.log("Server running");
 });
