@@ -1,0 +1,270 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/chessboard-1.0.0.css"/>
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-camo.css">
+        <style>
+            h1, h2, a, button, t, label{
+                font-family: 'Lato', sans-serif;
+            }
+            #board{
+                display: initial;
+                width: 35vw;
+                height: auto;
+            }
+
+            #game{
+                position: relative;
+            }
+
+            @media only screen and (max-width: 1000px) and (min-width: 700px){
+                #board{
+                    width: 60vw;
+                }
+            }
+
+
+            @media only screen and (max-width: 700px){
+
+                #board{
+                    width: 90vw;
+                }
+
+                h1, h2, a, button, t, label{
+                    font-family: 'Lato', sans-serif;
+                    font-size:small;
+                }
+
+                button, a, i{
+                    font-size: 10px !important;
+                }
+                .w3-cell{
+                    padding-left: 3px !important;
+                    padding-right: 3px !important;
+                }
+
+            }
+            
+            .padding{
+                height: 2vh;
+            }
+
+            #navbar{
+                width: 100vw;
+                background-color: #18202A;
+            }
+            
+
+
+        </style>
+    </head>
+    <body>
+        <div class="w3-bar w3-black">
+            <div class="w3-container w3-cell w3-cell-middle">
+                <h1 id="title">Circe Chess</h1>
+            </div>
+            <div class="w3-container w3-cell w3-cell-middle">
+                    <a href="https://youtu.be/ylk_EXXX7Go" class="w3-button w3-white w3-round-xxlarge">
+                        <div class="w3-cell w3-cell-middle" style="padding-left: 5px; padding-right: 5px;">
+                            Rules
+                        </div>
+                        <div class="w3-cell w3-cell-middle">
+                            <i class="w3-center material-icons">help</i>
+                        </div>
+                    </a>
+            </div>
+            <div class="w3-container w3-cell w3-cell-middle">
+                <button class="w3-button w3-white w3-round-xxlarge">
+                    <div class="w3-cell w3-cell-middle" style="padding-left: 5px; padding-right: 5px;">
+                        Code
+                    </div>
+                    <div class="w3-cell w3-cell-middle">
+                        <i class="w3-center material-icons">code</i>
+                    </div>
+                </button>
+            </div>
+            <div class="w3-container w3-cell w3-cell-middle">
+                <a id="swapLink" class="w3-button w3-white w3-round-xxlarge" href="/createonline">
+                    <div id="swapMode" class="w3-cell w3-cell-middle" style="padding-left: 5px; padding-right: 5px;">
+                        Play Online
+                    </div>
+                    <div class="w3-cell w3-cell-middle">
+                        <i class="w3-center material-icons">groups</i>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <center>
+                <div id="game">
+                    <!--<div>Icons made by <a href="https://www.flaticon.com/authors/darius-dan" title="Darius Dan">Darius Dan</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>-->
+                    <div class="padding"></div>
+                    <div>
+                        <label>Current State:</label>
+                        <t id="status">White to Move</t>
+                    </div>
+                    <div class="padding"></div>
+                    <div>
+                        <div id="board"></div>
+                    </div>
+                    <div class="padding"></div>
+                    <div>
+                        <button class="w3-button w3-black w3-round-xxlarge w3-hover-opacity" id="back" onclick="">Back</button>
+                        <button class="w3-button w3-black w3-round-xxlarge w3-hover-opacity" id="forward">Forward</button>
+                        <button id="endBtn" class="w3-button w3-pink w3-round-xxlarge w3-hover-opacity" onclick="resetAction(this)" id="forward">Reset</button>
+                    </div>
+                </div>
+        </center>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="/js/chessboard-1.0.0.js"></script>
+        <script src="/socket.io"></script>
+        <script src="/js/game.js"></script>
+        <div id="resetModal" class="w3-modal">
+            <div class="w3-modal-content w3-animate-top">
+              <header class="w3-container w3-black"> 
+                <h2>Reset Game</h2>
+                <i onclick="document.getElementById('resetModal').style.display='none'" 
+                class="material-icons w3-button w3-display-topright">close</i>
+              </header>
+              <div class="w3-container w3-white">
+                <div class="padding"></div>
+                <div class="padding"></div>
+                <h2>Are you sure you want to reset and begin a new game?</h2>
+                <div class="padding"></div>
+                <div class="padding"></div>
+              </div>
+              <footer class="w3-container w3-black">
+                <div class="padding"></div>
+                <div class="padding"></div>
+                <button class="w3-hover-opacity w3-round-xxlarge w3-button w3-pink" onclick="window.location.reload();">Yes, reset</button>
+                <button class="w3-hover-opacity w3-round-xxlarge w3-button w3-white" onclick="document.getElementById('resetModal').style.display='none'">No, keep current position</button>
+                <div class="padding"></div>
+                <div class="padding"></div>
+              </footer>
+            </div>
+        </div>
+
+
+        <div id="endModal" class="w3-modal">
+            <div class="w3-modal-content w3-animate-top">
+              <header class="w3-container w3-black"> 
+                <h2>Game Over</h2>
+                <i onclick="document.getElementById('endModal').style.display='none'" 
+                class="material-icons w3-button w3-display-topright">close</i>
+              </header>
+              <div class="w3-container w3-white">
+                <div class="padding"></div>
+                <div class="padding"></div>
+                <h2 id="winnerStatement"> wins by checkmate.</h2>
+                <h2>Start a new game?</h2>
+                <div class="padding"></div>
+                <div class="padding"></div>
+              </div>
+              <footer class="w3-container w3-black">
+                <div class="padding"></div>
+                <div class="padding"></div>
+                <button id="newGameBtn" class="w3-hover-opacity w3-round-xxlarge w3-button w3-pink" onclick="rematchRequest()">Yes</button>
+                <button class="w3-hover-opacity w3-round-xxlarge w3-button w3-white" onclick="document.getElementById('endModal').style.display='none'; playingOnline=false;">No, continue with position (offline)</button>
+                <div class="padding"></div>
+                <div class="padding"></div>
+              </footer>
+            </div>
+        </div>
+
+        <div id="resignModal" class="w3-modal">
+            <div class="w3-modal-content w3-animate-top">
+              <header class="w3-container w3-black"> 
+                <h2>Resignation Confirmation</h2>
+                <i onclick="document.getElementById('resignModal').style.display='none'" 
+                class="material-icons w3-button w3-display-topright">close</i>
+              </header>
+              <div class="w3-container w3-white">
+                <div class="padding"></div>
+                <div class="padding"></div>
+                <h2 id="winnerStatement">Are you sure you want to resign and end the game?</h2>
+                <div class="padding"></div>
+                <div class="padding"></div>
+              </div>
+              <footer class="w3-container w3-black">
+                <div class="padding"></div>
+                <div class="padding"></div>
+                <button class="w3-hover-opacity w3-round-xxlarge w3-button w3-pink" onclick="document.getElementById('resignModal').style.display='none'; resigned=true; updateStatus();">Yes, resign</button>
+                <button class="w3-hover-opacity w3-round-xxlarge w3-button w3-white" onclick="document.getElementById('resignModal').style.display='none'">No, keep playing</button>
+                <div class="padding"></div>
+                <div class="padding"></div>
+              </footer>
+            </div>
+        </div>
+
+
+        <div id="onlineModal" class="w3-modal">
+            <div class="w3-modal-content w3-animate-top">
+              <header class="w3-container w3-black"> 
+                <h2>Online Play</h2>
+                <i onclick="document.getElementById('onlineModal').style.display='none'" 
+                class="material-icons w3-button w3-display-topright">close</i>
+              </header>
+              <div class="w3-container w3-white">
+                <div class="padding"></div>
+                <div class="padding"></div>
+                <h2>Invite a friend!</h2>
+                <h2 id="joinLink">Have your opponent join at this link: </h2>
+                <div class="padding"></div>
+                <div class="padding"></div>
+              </div>
+              <footer class="w3-container w3-black">
+                <div class="padding"></div>
+                <div class="padding"></div>
+                <button class="w3-hover-opacity w3-round-xxlarge w3-button w3-white" onclick="document.getElementById('onlineModal').style.display='none'">Done</button>
+                <div class="padding"></div>
+                <div class="padding"></div>
+              </footer>
+            </div>
+        </div>
+
+        <script>
+
+            var url;
+            var code;
+
+            function copyStuff(){
+                console.log("COPIED!");
+                navigator.clipboard.writeText("http://cb83-2601-400-8000-5990-ecb5-5266-970-113b.ngrok.io/join?" + code);
+            }
+
+            window.onload = function(){
+                url = window.location.href;
+                if (url.indexOf("online") != -1 || url.indexOf("join") != -1){
+                    playingOnline = true;
+                    if (url.indexOf("online") != -1){
+                        document.getElementById("onlineModal").style.display = "block";
+                    }
+                    code = url.slice(url.indexOf("?") + 1, url.length);
+                    document.getElementById("joinLink").innerHTML += "<u>http://cb83-2601-400-8000-5990-ecb5-5266-970-113b.ngrok.io/join?" + code + "</u><button title='Copy URL to Clipboard' class='w3-button w3-white' onclick='copyStuff()'><i class='material-icons'>content_copy</i></button>";
+                    document.getElementById("swapMode").innerHTML = "Local Play";
+                    document.getElementById("swapLink").href = "/";
+                    document.getElementById("endBtn").innerHTML = "Resign";
+                    document.getElementById("newGameBtn").innerHTML = "Yes, rematch";
+                }
+                else{
+                    playingOnline = false;
+                }
+            }
+
+            function resetAction(self){
+                if (self.innerHTML == "Reset"){
+                    document.getElementById('resetModal').style.display='block';
+                }
+                else{
+                    document.getElementById("resignModal").style.display = "block";
+                }
+            }
+
+        </script>
+    </body>
+</html>
