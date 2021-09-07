@@ -56,7 +56,11 @@ app.get("/socket.io", function(req, res){
     res.sendFile(__dirname + "/node_modules/socket.io/client-dist/socket.io.min.js");
 })
 
-app.get("/:anything", function(req, res){
+app.get("/online", function(req, res){
+    res.sendFile(__dirname + "/home.html");
+});
+
+app.get("/join", function(req, res){
     res.sendFile(__dirname + "/home.html");
 });
 
