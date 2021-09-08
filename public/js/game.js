@@ -242,7 +242,13 @@ function onDragStart (source, piece, position, orientation) {
             pieceMapping[arrIndex] = "q"
         }
 
-        if (currentMove.flags.indexOf("c") != -1){
+        if (currentMove.flags.indexOf("c") != -1 || currentMove.flags.indexOf("e") != -1){
+            if (currentMove.flags.indexOf("e") != -1){
+                var newSquareSecondPart = newSquare.slice(1, 2);
+                var newNum = parseInt(newSquareSecondPart) - 1;
+                newSquare = newSquare.slice(0,1) + newNum.toString();
+                console.log(newSquare);
+            }
             let arrIndex = black_corresponding_squares.indexOf(newSquare);
             var ogSquare = black_original_squares[arrIndex];
             console.log(ogSquare);
@@ -255,7 +261,7 @@ function onDragStart (source, piece, position, orientation) {
                 black_corresponding_squares[arrIndex] = ogSquare;
                 board.position(game.fen(), true);
             }
-        }
+        }    
     }
     else{
         let index = black_corresponding_squares.indexOf(oldSquare)
@@ -267,9 +273,15 @@ function onDragStart (source, piece, position, orientation) {
             pieceMapping[arrIndex] = "q"
         }
 
-        if (currentMove.flags.indexOf("c") != -1){
+        if (currentMove.flags.indexOf("c") != -1 || currentMove.flags.indexOf("e") != -1){
             let arrIndex = white_corresponding_squares.indexOf(newSquare);
             var ogSquare = white_original_squares[arrIndex];
+            if (currentMove.flags.indexOf("e") != -1){
+              var newSquareSecondPart = newSquare.slice(1, 2);
+              var newNum = parseInt(newSquareSecondPart) - 1;
+              newSquare = newSquare.slice(0,1) + newNum.toString();
+              console.log(newSquare)
+            }
             console.log(ogSquare);
             if (ogSquare.indexOf("2") != -1){
                 ogSquare = newSquare.slice(0,1) + "2";
